@@ -25,10 +25,46 @@ int main(){
     }
     return 0;
 }
------------------------------------------------
 
-              
+ Run Length Decoding
+
+ #define MAX_LEN 255
+
+ char *decode(char *input) {
+    char *result = calloc(sizeof(char), MAX_LEN);
+    char *p_result = result;
+    int count = 0;
+    for(char *c = input; *c; c++) {
+        if('0' <= *c && *c <= '9') {
+            count *= 10;
+            count += (int)(*c - '0');
+        } else {
+            for(int i = count > 0 ? count : 1; 0 < i; i--)
+                *(p_result++) = *c;
+            count = 0;
+        }
+    }
+    return result;
+
+}
+-----------------------------------------------
+     
 Word Counter 
+
+int count(node *n)
+{
+    int c = 1;
+
+    if (n == NULL)
+        return 0;
+    else
+    {
+        c += count(n->l);
+        c += count(n->r);
+        return c;
+     }
+
+}
 
 #include <stdio.h>
 #include <string.h>
@@ -426,48 +462,3 @@ struct node *search(int key, struct node *leaf){
   }
   else return 0;
 }
-
-------------------------------------------------------
-#include <stdio.h> 
-#include <stdlib.h> 
-#include <string.h> 
-#define MAX_RLEN 50 
-  
-char* encode(char* src) 
-{ 
-    int rLen; 
-    char count[MAX_RLEN]; 
-    int len = strlen(src); 
-  
-    char* dest = (char*)malloc(sizeof(char) * (len * 2 + 1)); 
-  
-    int i, j = 0, k; 
- 
-    for (i = 0; i < len; i++) { 
- 
-        dest[j++] = src[i]; 
- 
-        rLen = 1; 
-        while (i + 1 < len && src[i] == src[i + 1]) { 
-            rLen++; 
-            i++; 
-        } 
-
-        sprintf(count, "%d", rLen); 
-  
-        for (k = 0; *(count + k); k++, j++) { 
-            dest[j] = count[k]; 
-        } 
-    } 
-  
-    dest[j] = '\0'; 
-    return dest; 
-} 
-  
-int main() 
-{ 
-    char str[] = "razdvaatrii"; 
-    char* res = encode(str); 
-    printf("%s", res); 
-    getchar(); 
-} 
