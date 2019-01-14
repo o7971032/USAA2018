@@ -25,20 +25,17 @@ int main(){
     }
     return 0;
 }
-
+-----------------------------------------------
 
               
 Word Counter 
-https://www.sanfoundry.com/c-program-count-words-in-sentence/
 
 #include <stdio.h>
 #include <string.h>
- 
 void main()
 {
     char s[200];
     int count = 0, i;
- 
     printf("enter the string\n");
     scanf("%[^\n]s", s);
     for (i = 0;s[i] != '\0';i++)
@@ -48,11 +45,21 @@ void main()
     
     printf("number of words in given string are: %d\n", count + 1);
 }
-
+-------------------------------------------------------------
 
 
 Linked List  
-1. Vytvorí spojkový zoznam 
+Vytvorí spojkový zoznam(hladek)
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+ struct todolist {
+    char task[12];
+    struct todolist* next;
+
+};
 
 struct todolist* create(struct todolist* next,const char* task) {
     struct todolist* n = calloc(1,sizeof(struct todolist));
@@ -61,16 +68,24 @@ struct todolist* create(struct todolist* next,const char* task) {
     return n;
 }
 
+1.Vytvori jednoprvkovy spojkovy zoznam
+struct list* create_list(int data){
+      struct list* head = NULL;
+      head=(struct list*) malloc(sizeof(struct list));
+      head->data=1;
+      head->next=NULL;
+      return head;
+}
 
 
 2. Zrušenie všetkých prvkov zoznamu
 
 void destroy_list(struct list* list) {
-	
-	if(list != NULL){
-		destroy_list(list->next);
-		free(list);
-	}   
+ 
+ if(list != NULL){
+  destroy_list(list->next);
+  free(list);
+ }   
 }
 
 
@@ -82,7 +97,7 @@ struct list* pop_list(struct list* list, int* value)
     struct list *temp = list, *ptr = NULL; 
 
     if (list == NULL){
-    	return NULL;
+     return NULL;
     }
 
     while (temp) { 
@@ -111,8 +126,7 @@ return list;
 
 
 4. Pridá prvok na koniec zoznamu
- 
-struct list* push_list(struct list* list, int data)//data=value,list=head,node=list
+struct list* push_list(struct list* list, int data)//data=value,list=head
 {
     struct list *newList = (struct list *) malloc(sizeof(struct list));
     newList->data = data;
@@ -176,7 +190,22 @@ void print_list(struct todolist* list){
 
 }
 
+ int main(){
 
+     struct todolist* one = add_start(NULL,"Studujem");
+//
+    struct todolist* two = add_start(one,"Vstanem");
+
+     print_list(two);
+    delete_list(two);
+//    one.next = &two;
+//
+//    process(one);
+
+
+    return 0;
+
+--------------------------------------------------------------
 
 Asociatívne pole (Hashovacia funkcia)
 
@@ -293,28 +322,28 @@ int main(){
     return 0;
 }
 
-
+------------------------------------------------------------------
 
 Načítanie zo štandardného vstupu (klávesnica) 
 
 int read_line(char* line, int size){
 for (int i = 0; i< size-1; i++){
-    		int c = getchar();
-    		if (c == EOF){
-       			line[i]=0;
-       			return EOF;
-    		}
-    		else if (c == '\n'){
-        			line[i] = c;
-        			line[i+1] = 0;
-        			return i + 1;
-    		}
-    		line[i] = c;
+      int c = getchar();
+      if (c == EOF){
+          line[i]=0;
+          return EOF;
+      }
+      else if (c == '\n'){
+           line[i] = c;
+           line[i+1] = 0;
+           return i + 1;
+      }
+      line[i] = c;
 }
   return size - 1;
 }
 
-
+----------------------------------------------------------------
 
 Načítanie zo súboru 
 
@@ -336,10 +365,9 @@ int read_line(FILE* file,char* line, int size) {
 
   return size - 1;
 }
-
+--------------------------------------------------------------------
 
 Binárny strom
-https://www.cprogramming.com/tutorial/c/lesson18.html
 
 struct node{
   int key_value;
